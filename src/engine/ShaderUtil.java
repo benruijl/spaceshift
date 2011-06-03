@@ -15,7 +15,7 @@ public final class ShaderUtil {
             System.out.println("Could not find attribute " + attribute);
             return;
         }
-
+        
         GL20.glVertexAttrib1f(attribLoc, value);
     }
 }

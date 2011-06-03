@@ -1,21 +1,48 @@
 package spaceshift;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import engine.Renderable;
+import engine.ResourceManager;
+import engine.Shader;
+
 public class World {
+    private final Set<Renderable> renderables;
+    private final Set<Shiftable> shiftables;
+
     private float shiftFactor;
-    /* Some test objects */
-    private final Box box;
 
     public World() {
+        initializeShaders();
+
+        renderables = new HashSet<Renderable>();
+        shiftables = new HashSet<Shiftable>();
+
         shiftFactor = (float) (0.5f * Math.PI);
-        box = new Box();
+
+        Box box = new Box(true);
+        renderables.add(box);
+        shiftables.add(box);
+    }
+
+    private void initializeShaders() {
+        ResourceManager.INSTANCE.addShader(Shaders.SHIFTER, new Shader(
+                "res/shaders/screen.vert", "res/shaders/screen.frag"));
     }
 
     public void draw() {
-        box.draw();
+        for (Renderable renderable : renderables) {
+            renderable.draw();
+        }
     }
 
     public void update(int delta) {
-        box.shift(shiftFactor);
+        for (Shiftable shiftable : shiftables) {
+            if (shiftable.doShift()) {
+                shiftable.shift(shiftFactor);
+            }
+        }
     }
 
     public void doAction() {
