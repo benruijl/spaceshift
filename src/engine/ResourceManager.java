@@ -16,7 +16,7 @@ public enum ResourceManager {
     public Shader getShader(Object id) {
         return shaders.get(id);
     }
-    
+
     public void addShader(Object id, Shader shader) {
         shaders.put(id, shader);
     }

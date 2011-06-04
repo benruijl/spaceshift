@@ -12,7 +12,7 @@ public class Main {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final boolean DO_FULLSCREEN = false;
-    
+
     /** time at last frame */
     private long lastFrame;
 
@@ -88,7 +88,8 @@ public class Main {
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GLU.gluPerspective(45.0f, ((float) WIDTH / (float) HEIGHT), 0.1f, 100.0f);
+        GLU.gluPerspective(45.0f, ((float) WIDTH / (float) HEIGHT), 0.1f,
+                100.0f);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glShadeModel(GL11.GL_SMOOTH);

@@ -57,11 +57,11 @@ public class Shader {
 
         ARBShaderObjects.glUseProgramObjectARB(shader);
     }
-    
+
     public int getShader() {
         return shader;
     }
-        
+
     public static void disableShaders() {
         ARBShaderObjects.glUseProgramObjectARB(0);
     }
