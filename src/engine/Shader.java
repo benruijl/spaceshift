@@ -36,7 +36,7 @@ public class Shader {
             ARBShaderObjects.glValidateProgramARB(shader);
             enabled = true;
         } else {
-            System.out.println("Shader failed to load.");
+            throw new AssertionError("Shader failed to load.");
         }
 
         printLogInfo(shader);
@@ -83,8 +83,7 @@ public class Shader {
                 vertexCode += line + "\n";
             }
         } catch (Exception e) {
-            System.out.println("Fail reading vertex shading code");
-            return 0;
+            throw new AssertionError("Fail reading vertex shading code");
         }
         /*
          * associate the vertex code String with the created vertex shader and
@@ -112,8 +111,7 @@ public class Shader {
                 fragCode += line + "\n";
             }
         } catch (Exception e) {
-            System.out.println("Fail reading fragment shading code");
-            return 0;
+            throw new AssertionError("Fail reading fragment shading code");
         }
         ARBShaderObjects.glShaderSourceARB(fragmentShader, fragCode);
         ARBShaderObjects.glCompileShaderARB(fragmentShader);

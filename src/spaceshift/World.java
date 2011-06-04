@@ -31,6 +31,8 @@ public class World {
     }
 
     private void initializeShaders() {
+        ResourceManager.INSTANCE.addShader(Shaders.COLOR, new Shader(
+                "res/shaders/color.vert", "res/shaders/color.frag"));
         ResourceManager.INSTANCE.addShader(Shaders.SHIFTER, new Shader(
                 "res/shaders/screen.vert", "res/shaders/screen.frag"));
     }
