@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
 
 import shapes.Circle;
 import engine.Physics;
@@ -31,6 +32,7 @@ public class Scene {
 		shiftables.add(box);
 
 		Circle circle =  new Circle(32);
+		circle.getPointerWorldTransformation().translate(new Vector2f(-2, 0));
 		renderables.add(circle);
 		
 		physics = new Physics();

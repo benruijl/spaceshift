@@ -13,6 +13,11 @@ public class SceneObject {
 		/* Defensive copy */
 		return new Matrix4f().load(worldTransformation);
 	}
+	
+	public Matrix4f getPointerWorldTransformation() {
+		/* Defensive copy */
+		return worldTransformation;
+	}
 
 	public void setWorldTransformation(Matrix4f worldTransformation) {
 		this.worldTransformation = worldTransformation;
