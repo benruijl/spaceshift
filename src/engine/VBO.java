@@ -78,7 +78,7 @@ public class VBO {
 			ARBBufferObject.glBindBufferARB(
 					ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB,
 					indexBufferID);
-			GL12.glDrawRangeElements(GL11.GL_QUADS, 0, indexCount,
+			GL12.glDrawRangeElements(GL11.GL_TRIANGLES, 0, indexCount,
 					indexCount, GL11.GL_UNSIGNED_INT, 0);
 		} else {
 			GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, vertexCount / 2);
