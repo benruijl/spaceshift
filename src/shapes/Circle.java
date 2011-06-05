@@ -30,9 +30,9 @@ public class Circle extends SceneObject implements Renderable {
 		    (float) Math.sin(2 * Math.PI * i / (float) steps) });
 
 	    if (i == steps - 1) {
-		index.put(new int[] { 0, 1, i + 1 });
+		index.put(new int[] { 0, i + 1, 1 });
 	    } else {
-		index.put(new int[] { 0, i + 2, i + 1 });
+		index.put(new int[] { 0, i + 1, i + 2 });
 	    }
 	}
 

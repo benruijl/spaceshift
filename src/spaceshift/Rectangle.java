@@ -23,7 +23,7 @@ public class Rectangle extends SceneObject implements Renderable, Shiftable {
     }
 
     private void createBox() {
-        float vert[] = { 0.0f, 2.0f, 2.0f, 2.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 2.0f };
+        float vert[] = {0.0f, 0.0f, 2.0f, 2.0f, 0.0f, 2.0f, 2.0f, 0.0f, 2.0f, 2.0f, 0.0f, 0.0f };
 
         FloatBuffer vertices = BufferUtils.createFloatBuffer(vert.length);
         vertices.put(vert);
