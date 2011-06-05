@@ -42,6 +42,7 @@ public class Rectangle extends SceneObject implements Renderable, Shiftable {
         Shader shifter = ResourceManager.INSTANCE.getShader(Shaders.SHIFTER);
         shifter.useShader();
 
+	ShaderUtil.setUniform(shifter, "worldtrans", getWorldTransformation());
         ShaderUtil.setVertexAttribute(shifter, "phi", phi);
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
 
