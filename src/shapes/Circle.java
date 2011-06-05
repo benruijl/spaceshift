@@ -11,11 +11,12 @@ import org.lwjgl.util.vector.Vector3f;
 import spaceshift.Shaders;
 import engine.Renderable;
 import engine.ResourceManager;
+import engine.SceneObject;
 import engine.Shader;
 import engine.ShaderUtil;
 import engine.VBO;
 
-public class Circle implements Renderable {
+public class Circle extends SceneObject implements Renderable {
 	private VBO vbo;
 
 	public Circle(int steps) {

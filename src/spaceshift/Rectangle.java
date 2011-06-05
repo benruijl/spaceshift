@@ -7,11 +7,12 @@ import org.lwjgl.opengl.GL11;
 
 import engine.Renderable;
 import engine.ResourceManager;
+import engine.SceneObject;
 import engine.Shader;
 import engine.ShaderUtil;
 import engine.VBO;
 
-public class Rectangle implements Renderable, Shiftable {
+public class Rectangle extends SceneObject implements Renderable, Shiftable {
     private VBO vbo;
     private float phi = 0.5f * (float) Math.PI;
     private boolean shift;

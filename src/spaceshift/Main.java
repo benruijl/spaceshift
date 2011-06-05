@@ -27,7 +27,7 @@ public class Main {
 
         boolean terminate = false;
 
-        World world = new World();
+        Scene world = new Scene();
 
         while (!terminate && !Display.isCloseRequested()) {
             /* Check input */
