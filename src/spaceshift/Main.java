@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import org.lwjgl.util.vector.Vector2f;
 
 public class Main {
     private static final int FPS_CAP = 60;
@@ -37,6 +38,14 @@ public class Main {
 
             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
                 world.doAction();
+            }
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+                world.Move(new Vector2f(0.2f, 0));
+            }
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+                world.Move(new Vector2f(-0.2f, 0));
             }
 
             int delta = getDelta();

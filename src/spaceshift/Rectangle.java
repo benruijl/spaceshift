@@ -35,6 +35,9 @@ public class Rectangle extends SceneObject implements Renderable, Shiftable {
     @Override
     public void shift(float shiftFactor) {
         phi = shiftFactor;
+        
+        getPointerWorldTransformation().m10 = (float)Math.cos(phi);
+        getPointerWorldTransformation().m11 = (float)Math.sin(phi);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Rectangle extends SceneObject implements Renderable, Shiftable {
         shifter.useShader();
 
 	ShaderUtil.setUniform(shifter, "worldtrans", getWorldTransformation());
-        ShaderUtil.setVertexAttribute(shifter, "phi", phi);
+        ShaderUtil.setVertexAttribute(shifter, "phi", 0.5f * (float)Math.PI);//phi);
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
 
         vbo.render();

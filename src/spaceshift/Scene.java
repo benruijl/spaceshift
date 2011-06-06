@@ -10,6 +10,7 @@ import shapes.Circle;
 import engine.Physics;
 import engine.Renderable;
 import engine.ResourceManager;
+import engine.SceneObject;
 import engine.Shader;
 
 public class Scene {
@@ -18,6 +19,7 @@ public class Scene {
 	private final Set<Renderable> renderables;
 	private final Set<Shiftable> shiftables;
 
+	private final SceneObject player;
 	private float shiftFactor;
 
 	public Scene() {
@@ -28,6 +30,7 @@ public class Scene {
 
 		shiftFactor = (float) (0.5f * Math.PI);
 		Rectangle box = new Rectangle(true);
+		box.getPointerWorldTransformation().translate(new Vector2f(0, -3));
 		renderables.add(box);
 		shiftables.add(box);
 
@@ -36,7 +39,9 @@ public class Scene {
 		renderables.add(circle);
 		
 		physics = new Physics();
-		physics.createDynamicBody(circle);
+		physics.createDynamicCircleBody(circle);
+		physics.createStaticRectBody(box);
+		player = circle;
 	}
 
 	private void initializeShaders() {
@@ -71,6 +76,10 @@ public class Scene {
 		if (shiftFactor < 0) {
 			shiftFactor = (float) (0.5f * Math.PI);
 		}
+	}
+	
+	public void Move(Vector2f dir) {
+	    physics.applyForce(player, dir);
 	}
 
 }
