@@ -25,7 +25,7 @@ public class Physics {
 
     public Physics() {
 	bodyMap = new HashMap<SceneObject, Body>();
-	
+
 	world = new World(gravity, true);
 
 	/* Create a ground */
@@ -46,16 +46,49 @@ public class Physics {
 	body.setUserData(sceneObject);
 
 	CircleShape circleShape = new CircleShape();
-	circleShape.m_radius = 1.0f;
+	circleShape.m_radius = sceneObject.getWorldTransformation().m00;
 
 	FixtureDef fixture = new FixtureDef();
 	fixture.shape = circleShape;
-	fixture.density = 1;
+	fixture.density = 2;
 	body.createFixture(fixture);
-	
+
 	bodyMap.put(sceneObject, body);
     }
-    
+
+    public void adjustRectFixture(SceneObject sceneObject) {
+	PolygonShape polygonShape = new PolygonShape();
+
+	Vec2 vertices[] = new Vec2[4];
+
+	Vector4f temp = new Vector4f();
+	Matrix4f.transform(sceneObject.getPointerWorldTransformation(),
+		new Vector4f(0, 0, 0, 0), temp);
+	vertices[0] = new Vec2(temp.x, temp.y);
+
+	Matrix4f.transform(sceneObject.getPointerWorldTransformation(),
+		new Vector4f(1, 0, 0, 0), temp);
+	vertices[1] = new Vec2(temp.x, temp.y);
+
+	Matrix4f.transform(sceneObject.getPointerWorldTransformation(),
+		new Vector4f(1, 1, 0, 0), temp);
+	vertices[2] = new Vec2(temp.x, temp.y);
+
+	Matrix4f.transform(sceneObject.getPointerWorldTransformation(),
+		new Vector4f(0, 1, 0, 0), temp);
+	vertices[3] = new Vec2(temp.x, temp.y);
+
+	polygonShape.set(vertices, 4);
+
+	Body body = bodyMap.get(sceneObject);
+
+	if (body.getFixtureList() != null) {
+	    body.destroyFixture(body.getFixtureList());
+	}
+
+	body.createFixture(polygonShape, 1);
+    }
+
     public void createStaticRectBody(SceneObject sceneObject) {
 	BodyDef bodyDef = new BodyDef();
 	bodyDef.position.set(sceneObject.getWorldTransformation().m30,
@@ -63,29 +96,9 @@ public class Physics {
 	Body body = world.createBody(bodyDef);
 	body.setType(BodyType.STATIC);
 	body.setUserData(sceneObject);
-	
-	PolygonShape polygonShape = new PolygonShape();
-	
-	Vec2 vertices[] = new Vec2[4];
-	
-	Vector4f temp = new Vector4f();
-	Matrix4f.transform(sceneObject.getPointerWorldTransformation(), new Vector4f(0, 0, 0, 0), temp);
-	vertices[0] = new Vec2(temp.x, temp.y);
-	
-	Matrix4f.transform(sceneObject.getPointerWorldTransformation(), new Vector4f(1, 0, 0, 0), temp);
-	vertices[1] = new Vec2(temp.x, temp.y);
-	
-	Matrix4f.transform(sceneObject.getPointerWorldTransformation(), new Vector4f(1, 1, 0, 0), temp);
-	vertices[2] = new Vec2(temp.x, temp.y);
-	
-	Matrix4f.transform(sceneObject.getPointerWorldTransformation(), new Vector4f(0, 1, 0, 0), temp);
-	vertices[3] = new Vec2(temp.x, temp.y);
-	
-	
-	polygonShape.set(vertices, 4);
-	body.createFixture(polygonShape, 1);
-	
 	bodyMap.put(sceneObject, body);
+
+	adjustRectFixture(sceneObject);
     }
 
     public void doSimulation() {
@@ -98,22 +111,27 @@ public class Physics {
 	    if (body.getUserData() != null) {
 		SceneObject sceneObject = ((SceneObject) body.getUserData());
 		// FIXME: do somewhere else
-		sceneObject.setWorldTransformation(new Matrix4f()
-			.translate(new Vector2f(body.getPosition().x, body
-				.getPosition().y)));
+		sceneObject.getPointerWorldTransformation().m30 = body
+			.getPosition().x;
+		sceneObject.getPointerWorldTransformation().m31 = body
+			.getPosition().y;
+		// sceneObject.setWorldTransformation(new Matrix4f()
+		// .translate(new Vector2f(body.getPosition().x, body
+		// .getPosition().y)));
 	    }
 
 	    body = body.getNext();
 	}
     }
-    
+
     public void applyForce(SceneObject sceneObject, Vector2f force) {
 	if (!bodyMap.containsKey(sceneObject)) {
 	    System.out.println("No body for scene object found.");
 	    return;
 	}
-	
+
 	Body body = bodyMap.get(sceneObject);
-	body.applyLinearImpulse(new Vec2(force.x, force.y), body.getWorldCenter());
+	body.applyLinearImpulse(new Vec2(force.x, force.y),
+		body.getWorldCenter());
     }
 }

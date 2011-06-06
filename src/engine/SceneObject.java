@@ -15,7 +15,6 @@ public class SceneObject {
 	}
 	
 	public Matrix4f getPointerWorldTransformation() {
-		/* Defensive copy */
 		return worldTransformation;
 	}
 
