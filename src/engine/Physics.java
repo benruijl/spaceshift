@@ -17,7 +17,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 public class Physics {
     private final World world;
-    private static final Vec2 gravity = new Vec2(0, -0.3f);
+    private static final Vec2 gravity = new Vec2(0, -10.0f);
     private final float timeStep = 1.0f / 60.0f;
     private final int velocityIterations = 6;
     private final int positionIterations = 2;

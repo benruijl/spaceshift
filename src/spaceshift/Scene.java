@@ -23,6 +23,7 @@ public class Scene {
     private final SceneObject player;
     private final Rectangle box; // test box
     private float shiftFactor;
+    private static final float maximumShift = 0.9f;
 
     public Scene() {
 	initializeShaders();
@@ -66,6 +67,14 @@ public class Scene {
     }
 
     public void update(int delta) {
+    	shiftFactor += 0.01f;
+
+    	if (shiftFactor > 0.5f * Math.PI) {
+    	    shiftFactor = (float) (0.5f * Math.PI);
+    	}
+    	
+    	physics.adjustRectFixture(box);
+    	
 	physics.doSimulation();
 
 	for (Shiftable shiftable : shiftables) {
@@ -76,10 +85,10 @@ public class Scene {
     }
 
     public void doAction() {
-	shiftFactor -= 0.01f;
+	shiftFactor -= 0.03f;
 
-	if (shiftFactor < 0) {
-	    shiftFactor = (float) (0.5f * Math.PI);
+	if (shiftFactor < maximumShift) {
+	    shiftFactor = maximumShift;
 	}
 	
 	physics.adjustRectFixture(box);
