@@ -40,6 +40,10 @@ public class Main {
                 world.doAction();
             }
             
+            if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+                world.doShrink();
+            }
+            
             if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
                 world.Move(new Vector2f(0.2f, 0));
             }

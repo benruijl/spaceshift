@@ -27,14 +27,6 @@ public class Physics {
 	bodyMap = new HashMap<SceneObject, Body>();
 
 	world = new World(gravity, true);
-
-	/* Create a ground */
-	BodyDef groundDef = new BodyDef();
-	groundDef.position.set(0, -4);
-	Body groundBody = world.createBody(groundDef);
-	PolygonShape boxShape = new PolygonShape();
-	boxShape.setAsBox(50, 1);
-	groundBody.createFixture(boxShape, 1);
     }
 
     public void createDynamicCircleBody(SceneObject sceneObject) {
@@ -81,6 +73,11 @@ public class Physics {
 	polygonShape.set(vertices, 4);
 
 	Body body = bodyMap.get(sceneObject);
+	
+	/* FIXME: set angle */
+	body.setTransform(
+		new Vec2(sceneObject.getPointerWorldTransformation().m30,
+			sceneObject.getPointerWorldTransformation().m31), 0);
 
 	if (body.getFixtureList() != null) {
 	    body.destroyFixture(body.getFixtureList());
